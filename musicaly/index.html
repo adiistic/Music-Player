@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Basic Song Player</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .tab-btn {
+      margin: 5px;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    .active {
+      background: #444;
+      color: #fff;
+    }
+
+    .song-card {
+      border: 1px solid #444;
+      margin: 10px;
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🎵 My Song Player</h1>
+
+  <!-- Tabs -->
+  <button id="all-tab" class="tab-btn active">All Songs</button>
+  <button id="fav-tab" class="tab-btn">Favorites</button>
+
+  <!-- Song list container -->
+  <div id="song-list"></div>
+
+  <!-- Hidden audio element -->
+  <audio id="audio-player" controls style="margin-top:20px; width: 80%;"></audio>
+
+  <script>
+    // Song data
+    const songs = [
+      { id: 1, title: "hale dil ", artist: "Harshit saxena", file: "song1.mp3" },
+      { id: 2, title: "Pee loon", artist: "mohit chauhan", file: "song2.mp3" },
+      { id: 3, title: "Teri jhuki nazar", artist: "Pritam", file: "song3.mp3" },
+      { id: 4, title: "swah", artist: "seedhemaut", file: "song4.mp3" },
+
+      { id: 5, title: "Raat ki rani", artist: "Seedhemaut", file: "song5.mp3" }
+    ];
+
+    let favorites = [];
+    let currentTab = "all"; // all or fav
+    const audio = document.getElementById("audio-player");
+    const songList = document.getElementById("song-list");
+
+    // Render songs
+    function renderSongs() {
+      songList.innerHTML = "";
+      let displaySongs = currentTab === "all" ? songs : songs.filter(s => favorites.includes(s.id));
+      if (displaySongs.length === 0) {
+        songList.innerHTML = "<p>No songs found</p>";
+        return;
+      }
+      displaySongs.forEach(song => {
+        const div = document.createElement("div");
+        div.className = "song-card";
+        div.innerHTML = `
+          <h3>${song.title} - ${song.artist}</h3>
+          <button onclick="playSong('${song.file}')">▶️ Play</button>
+          <button onclick="toggleFavorite(${song.id})">
+            ${favorites.includes(song.id) ? "⭐ Remove Fav" : "☆ Add Fav"}
+          </button>
+        `;
+        songList.appendChild(div);
+      });
+    }
+
+    // Play a song
+    function playSong(file) {
+      audio.src = file;
+      audio.play();
+    }
+
+    // Add/Remove from favorites
+    function toggleFavorite(id) {
+      if (favorites.includes(id)) {
+        favorites = favorites.filter(f => f !== id);
+      } else {
+        favorites.push(id);
+      }
+      renderSongs();
+    }
+
+    // Tab switching
+    document.getElementById("all-tab").addEventListener("click", () => {
+      currentTab = "all";
+      document.getElementById("all-tab").classList.add("active");
+      document.getElementById("fav-tab").classList.remove("active");
+      renderSongs();
+    });
+    document.getElementById("fav-tab").addEventListener("click", () => {
+      currentTab = "fav";
+      document.getElementById("fav-tab").classList.add("active");
+      document.getElementById("all-tab").classList.remove("active");
+      renderSongs();
+    });
+
+    // Initial render
+    renderSongs();
+  </script>
+</body>
+
+</html>
