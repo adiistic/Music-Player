@@ -57,14 +57,13 @@
   <audio id="audio-player" controls style="margin-top:20px; width: 80%;"></audio>
 
   <script>
-    // Song data
+    // Song data (correct paths)
     const songs = [
-      { id: 1, title: "hale dil ", artist: "Harshit saxena", file: "song1.mp3" },
-      { id: 2, title: "Pee loon", artist: "mohit chauhan", file: "song2.mp3" },
-      { id: 3, title: "Teri jhuki nazar", artist: "Pritam", file: "song3.mp3" },
-      { id: 4, title: "swah", artist: "seedhemaut", file: "song4.mp3" },
-
-      { id: 5, title: "Raat ki rani", artist: "Seedhemaut", file: "song5.mp3" }
+      { id: 1, title: "hale dil", artist: "Harshit saxena", file: "musicaly/song1.mp3" },
+      { id: 2, title: "Pee loon", artist: "Mohit chauhan", file: "musicaly/song2.mp3" },
+      { id: 3, title: "Teri jhuki nazar", artist: "Pritam", file: "musicaly/song3.mp3" },
+      { id: 4, title: "swah", artist: "Seedhemaut", file: "musicaly/song4.mp3" },
+      { id: 5, title: "Raat ki rani", artist: "Seedhemaut", file: "musicaly/song5.mp3" }
     ];
 
     let favorites = [];
@@ -128,6 +127,4 @@
     renderSongs();
   </script>
 </body>
-
-
 </html>
